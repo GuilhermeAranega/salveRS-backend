@@ -1,0 +1,18 @@
+{
+  "name": "salversbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.4",
+    "prisma": "^5.15.0",
+    "tsx": "^4.15.6",
+    "typescript": "^5.4.5"
+  }
+}
