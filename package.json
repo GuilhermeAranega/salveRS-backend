@@ -14,5 +14,10 @@
     "prisma": "^5.15.0",
     "tsx": "^4.15.6",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.15.0",
+    "fastify": "^4.28.0",
+    "zod": "^3.23.8"
   }
 }
