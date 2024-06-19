@@ -22,12 +22,12 @@ model Usuarios {
   id        String @id @default(cuid())
   nome      String @db.VarChar(255)
   documento String @db.VarChar(14)
-  telefone  String @db.VarChar(14)
+  telefone  String @db.VarChar(11)
   email     String @db.VarChar(255)
   idade     Int
   senha     String @db.VarChar(255)
 
-  cep         String @db.VarChar(11)
+  cep         String @db.VarChar(8)
   rua         String @db.VarChar(255)
   numero      Int
   complemento String @db.VarChar(255)
@@ -44,12 +44,12 @@ model Prestadores {
   id        String @id @default(cuid())
   nome      String @db.VarChar(255)
   documento String @db.VarChar(14)
-  telefone  String @db.VarChar(14)
+  telefone  String @db.VarChar(11)
   email     String @db.VarChar(255)
   idade     Int
   senha     String @db.VarChar(255)
 
-  cep         String @db.VarChar(11)
+  cep         String @db.VarChar(8)
   rua         String @db.VarChar(255)
   numero      Int
   complemento String @db.VarChar(255)
