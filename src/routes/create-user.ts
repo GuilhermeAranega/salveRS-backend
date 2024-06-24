@@ -3,7 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { cpf, cnpj } from "cpf-cnpj-validator";
-import { hashData } from "./util/hash-data";
+import { hashData } from "./utils/hash-data";
 
 export async function createUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
