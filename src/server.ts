@@ -1,11 +1,20 @@
-import { fastify } from "fastify";
+import fastify from "fastify";
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
 
-const server = fastify();
+import { createUser } from "./routes/create-user";
 
-server.get("/", (req, res) => {
-  console.log("req");
-});
+export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
-server.listen({ port: 3333 }, () => {
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(createUser);
+
+app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");
 });
