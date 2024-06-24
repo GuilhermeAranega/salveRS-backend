@@ -77,8 +77,10 @@ model Consertos {
   @@map(name: "consertos")
 }
 
-model Item {
+model Itens {
   id         String @id @default(cuid())
   descricao  String
   quantidade Int
+
+  @@map(name: "itens")
 }
