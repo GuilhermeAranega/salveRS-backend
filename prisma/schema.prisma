@@ -21,7 +21,7 @@ enum Tipo {
 model Usuarios {
   id        String @id @default(cuid())
   nome      String @db.VarChar(255)
-  documento String @unique @db.VarChar(14)
+  documento String @unique @db.VarChar(255)
   telefone  String @unique @db.VarChar(11)
   email     String @unique @db.VarChar(255)
   idade     Int
@@ -43,7 +43,7 @@ model Usuarios {
 model Prestadores {
   id        String @id @default(cuid())
   nome      String @db.VarChar(255)
-  documento String @unique @db.VarChar(14)
+  documento String @unique @db.VarChar(255)
   telefone  String @unique @db.VarChar(11)
   email     String @unique @db.VarChar(255)
   idade     Int
