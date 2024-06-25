@@ -12,11 +12,11 @@ export async function createUser(app: FastifyInstance) {
       schema: {
         body: z.object({
           nome: z.string().min(3),
-          documento: z.string(),
+          documento: z.string().min(11),
           telefone: z.string().length(11),
           email: z.string().email(),
           idade: z.number().int().positive().max(100),
-          senha: z.string(),
+          senha: z.string().min(8),
           tipo: z.enum(["empresa", "pessoa_fisica"]),
           endereco: z.object({
             cep: z.string().length(8),
