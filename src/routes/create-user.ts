@@ -53,21 +53,20 @@ export async function createUser(app: FastifyInstance) {
       }
 
       const existingUser = await prisma.usuarios.findUnique({
-        where: { documento: data.documento },
+        where: { email: data.email },
       });
 
       if (existingUser) {
-        throw new Error(
-          "Já existe um outro usuário com esse número de documento"
-        );
+        throw new Error("Já existe um outro usuário com esse email");
       }
 
       const hashedSenha = await hashData(data.senha);
+      const hashedDocumento = await hashData(data.email);
 
       const user = await prisma.usuarios.create({
         data: {
           nome: data.nome,
-          documento: data.documento,
+          documento: hashedDocumento,
           telefone: data.telefone,
           email: data.email,
           idade: data.idade,
