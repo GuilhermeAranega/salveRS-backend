@@ -5,6 +5,7 @@ import {
   validatorCompiler,
   ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import { fastifyJwt } from "@fastify/jwt";
 
 import { createUser } from "./routes/create-user";
 import { authenticateUser } from "./routes/authenticate-user";
@@ -13,6 +14,7 @@ export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+app.register(fastifyJwt, { secret: "key" });
 
 app.register(createUser);
 app.register(authenticateUser);

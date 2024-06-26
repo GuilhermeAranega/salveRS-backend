@@ -2,7 +2,6 @@ import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { createToken } from "./utils/create-token";
 import { compareHashedData } from "./utils/compare-hashed-data";
 
 export async function authenticateUser(app: FastifyInstance) {
@@ -38,7 +37,7 @@ export async function authenticateUser(app: FastifyInstance) {
         throw new Error("Senha inválida");
       }
 
-      const token = await createToken({
+      const token = await res.jwtSign({
         userId: user.id,
         tipo: data.tipo,
         email: data.email,
