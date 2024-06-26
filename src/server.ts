@@ -9,6 +9,8 @@ import { fastifyJwt } from "@fastify/jwt";
 
 import { createUser } from "./routes/create-user";
 import { authenticateUser } from "./routes/authenticate-user";
+import { requestPasswordReset } from "./routes/request-password-reset";
+import { resetPassword } from "./routes/reset-password";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -18,6 +20,8 @@ app.register(fastifyJwt, { secret: "key", sign: { expiresIn: "3d" } });
 
 app.register(createUser);
 app.register(authenticateUser);
+app.register(requestPasswordReset);
+app.register(resetPassword);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");

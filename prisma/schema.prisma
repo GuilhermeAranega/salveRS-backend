@@ -84,3 +84,14 @@ model Itens {
 
   @@map(name: "itens")
 }
+
+model Links {
+  id     String @id @default(cuid())
+  userId String @unique @map("user_id")
+
+  token String @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "links")
+}
