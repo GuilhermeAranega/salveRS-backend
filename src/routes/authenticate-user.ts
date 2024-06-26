@@ -43,7 +43,7 @@ export async function authenticateUser(app: FastifyInstance) {
         email: data.email,
       });
 
-      return res.status(200).send({
+      return res.status(200).header("authorization", token).send({
         message: "Autenticado com sucesso",
         token,
       });
