@@ -71,6 +71,8 @@ model Consertos {
   usuario    Usuarios @relation(fields: [usuariosId], references: [id])
   usuariosId String
 
+  itens Itens[]
+
   data       DateTime @default(now())
   observacao String
 
@@ -81,6 +83,9 @@ model Itens {
   id         String @id @default(cuid())
   descricao  String
   quantidade Int
+
+  Consertos   Consertos? @relation(fields: [consertosId], references: [id])
+  consertosId String?
 
   @@map(name: "itens")
 }
