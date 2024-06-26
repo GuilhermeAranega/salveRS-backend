@@ -2,7 +2,7 @@ import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { sendEmail } from "./utils/sendEmail";
+import { sendEmail } from "./utils/send-email";
 
 export async function requestPasswordReset(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
