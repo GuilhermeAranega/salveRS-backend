@@ -14,7 +14,7 @@ export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
-app.register(fastifyJwt, { secret: "key" });
+app.register(fastifyJwt, { secret: "key", sign: { expiresIn: "3d" } });
 
 app.register(createUser);
 app.register(authenticateUser);
