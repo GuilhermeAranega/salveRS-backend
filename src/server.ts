@@ -12,6 +12,7 @@ import { authenticateUser } from "./routes/authenticate-user";
 import { requestPasswordReset } from "./routes/request-password-reset";
 import { resetPassword } from "./routes/reset-password";
 import { getUser } from "./routes/get-user";
+import { deleteUser } from "./routes/delete-user";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -24,6 +25,7 @@ app.register(authenticateUser);
 app.register(requestPasswordReset);
 app.register(resetPassword);
 app.register(getUser);
+app.register(deleteUser);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");
