@@ -32,9 +32,9 @@ export async function requestPasswordReset(app: FastifyInstance) {
 
       const token = await res.jwtSign(
         {
-          userId: user.id,
           email: email,
-          restorePwd: true,
+          userId: user.id,
+          pwdRestore: true,
         },
         {
           sign: { expiresIn: "10m", key: user.id + user.senha },

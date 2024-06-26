@@ -3,6 +3,13 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { hashData } from "./utils/hash-data";
+import { compareHashedData } from "./utils/compare-hashed-data";
+
+interface JWTPayload {
+  email: string;
+  userId: string;
+  pwdRestore: boolean;
+}
 
 export async function resetPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -14,25 +21,37 @@ export async function resetPassword(app: FastifyInstance) {
         }),
         body: z.object({
           novaSenha: z.string().min(8),
+          token: z.string(),
         }),
       },
     },
     async (req, res) => {
       const { id } = req.params;
-      const { novaSenha } = req.body;
+      const { novaSenha, token } = req.body;
 
-      const user = await prisma.usuarios.findUnique({
-        where: { id },
-      });
+      const [user, link] = await Promise.all([
+        prisma.usuarios.findUnique({
+          where: { id },
+        }),
+        prisma.links.findUnique({
+          where: {
+            token,
+          },
+        }),
+      ]);
 
-      if (!user) {
-        throw new Error("Usuário não encontrado");
+      if (!user || !link) {
+        throw new Error("Usuário ou token não encontrado");
       }
 
-      try {
-        await req.jwtVerify({ key: id + user.senha });
-      } catch {
-        throw new Error("Token expirado");
+      const tokenData = (await app.jwt.verify(token)) as JWTPayload;
+
+      if (tokenData.email != user.email || tokenData.userId != user.id) {
+        throw new Error("Token não validado");
+      }
+
+      if (await compareHashedData(user.senha, novaSenha)) {
+        throw new Error("A senha não pode ser igual a anterior");
       }
 
       const hashedNovaSenha = await hashData(novaSenha);
