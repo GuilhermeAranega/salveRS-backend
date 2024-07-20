@@ -1,0 +1,83 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table usuarios {
+  id String [pk]
+  nome String [not null]
+  documento String [unique, not null]
+  telefone String [unique, not null]
+  email String [unique, not null]
+  idade Int [not null]
+  senha String [not null]
+  cep String [not null]
+  rua String [not null]
+  numero Int [not null]
+  complemento String [not null]
+  bairro String [not null]
+  cidade String [not null]
+  tipo Tipo [not null, default: 'pessoa_fisica']
+  conserto consertos [not null]
+}
+
+Table prestadores {
+  id String [pk]
+  nome String [not null]
+  documento String [unique, not null]
+  telefone String [unique, not null]
+  email String [unique, not null]
+  idade Int [not null]
+  senha String [not null]
+  cep String [not null]
+  rua String [not null]
+  numero Int [not null]
+  complemento String [not null]
+  bairro String [not null]
+  cidade String [not null]
+  tipo Tipo [not null, default: 'pessoa_fisica']
+  conserto consertos [not null]
+}
+
+Table consertos {
+  id String [pk]
+  prestador prestadores [not null]
+  prestadorId String [not null]
+  usuario usuarios [not null]
+  usuarioId String [not null]
+  itens itens [not null]
+  data DateTime [default: `now()`, not null]
+  observacao String
+  status Status [not null, default: 'recebido']
+}
+
+Table itens {
+  id String [pk]
+  descricao String [not null]
+  quantidade Int [not null]
+  conserto consertos [not null]
+  consertosId String [not null]
+}
+
+Table links {
+  id String [pk]
+  userId String [unique, not null]
+  token String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+}
+
+Enum Tipo {
+  empresa
+  pessoa_fisica
+}
+
+Enum Status {
+  recebido
+  consertando
+  pronto
+}
+
+Ref: consertos.prestadorId > prestadores.id
+
+Ref: consertos.usuarioId > usuarios.id
+
+Ref: itens.consertosId > consertos.id

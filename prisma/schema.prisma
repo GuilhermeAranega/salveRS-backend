@@ -13,15 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 enum Tipo {
   empresa
   pessoa_fisica
 }
 
+enum Status {
+  recebido
+  consertando
+  pronto
+}
+
 model Usuarios {
   id        String @id @default(cuid())
   nome      String @db.VarChar(255)
-  documento String @unique @db.VarChar(255)
+  documento String @unique @db.VarChar(14)
   telefone  String @unique @db.VarChar(11)
   email     String @unique @db.VarChar(255)
   idade     Int
@@ -68,13 +78,14 @@ model Consertos {
   prestador   Prestadores @relation(fields: [prestadorId], references: [id])
   prestadorId String
 
-  usuario    Usuarios @relation(fields: [usuariosId], references: [id])
-  usuariosId String
+  usuario   Usuarios @relation(fields: [usuarioId], references: [id])
+  usuarioId String
 
   itens Itens[]
 
   data       DateTime @default(now())
-  observacao String
+  observacao String?
+  status     Status   @default(recebido)
 
   @@map(name: "consertos")
 }
@@ -84,8 +95,8 @@ model Itens {
   descricao  String
   quantidade Int
 
-  Consertos   Consertos? @relation(fields: [consertosId], references: [id])
-  consertosId String?
+  conserto    Consertos @relation(fields: [consertosId], references: [id])
+  consertosId String
 
   @@map(name: "itens")
 }
