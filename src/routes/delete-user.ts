@@ -3,12 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
-
-interface JWTPayload {
-  userId: string;
-  tipo: string;
-  email: string;
-}
+import { JWTPayload } from "./utils/jwt-payload";
 
 export async function deleteUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
