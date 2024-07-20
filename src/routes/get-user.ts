@@ -3,12 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
-
-interface JWTPayload {
-  userId: string;
-  tipo: string;
-  email: string;
-}
+import { JWTPayload } from "./utils/jwt-payload";
 
 export async function getUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -22,6 +17,7 @@ export async function getUser(app: FastifyInstance) {
               nome: z.string().min(3),
               telefone: z.string().length(11),
               email: z.string().email(),
+              documento: z.string(),
               idade: z.number().int().positive().max(100),
               tipo: z.enum(["empresa", "pessoa_fisica"]),
               endereco: z.object({
@@ -46,6 +42,7 @@ export async function getUser(app: FastifyInstance) {
           nome: true,
           email: true,
           telefone: true,
+          documento: true,
           idade: true,
           tipo: true,
           conserto: true,
@@ -68,6 +65,7 @@ export async function getUser(app: FastifyInstance) {
           nome: user.nome,
           telefone: user.telefone,
           email: user.email,
+          documento: user.documento,
           idade: user.idade,
           tipo: user.tipo,
           endereco: {
