@@ -61,12 +61,11 @@ export async function createUser(app: FastifyInstance) {
       }
 
       const hashedSenha = await hashData(data.senha);
-      const hashedDocumento = await hashData(data.email);
 
       const user = await prisma.usuarios.create({
         data: {
           nome: data.nome,
-          documento: hashedDocumento,
+          documento: data.documento,
           telefone: data.telefone,
           email: data.email,
           idade: data.idade,
