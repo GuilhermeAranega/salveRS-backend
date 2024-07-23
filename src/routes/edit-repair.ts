@@ -21,7 +21,7 @@ export async function editRepair(app: FastifyInstance) {
           status: z.enum(["recebido", "consertando", "pronto"]).optional(),
         }),
         response: {
-          201: z.object({
+          200: z.object({
             message: z.string(),
             updatedRepair: z.object({
               observacao: z.string().optional(),
@@ -79,7 +79,7 @@ export async function editRepair(app: FastifyInstance) {
         },
       });
 
-      return res.status(201).send({
+      return res.status(200).send({
         message: "Usuário atualizado com sucesso",
         updatedRepair: {
           observacao: updatedRepair.observacao ?? "",

@@ -13,7 +13,7 @@ export async function getItem(app: FastifyInstance) {
           id: z.string().cuid(),
         }),
         response: {
-          201: z.object({
+          200: z.object({
             message: z.string(),
             item: z.object({
               descricao: z.string().min(5),

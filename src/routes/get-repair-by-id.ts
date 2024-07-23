@@ -14,7 +14,7 @@ export async function getRepair(app: FastifyInstance) {
           id: z.string().cuid(),
         }),
         response: {
-          201: z.object({
+          200: z.object({
             message: z.string(),
             repair: z.object({
               observacao: z.string().optional(),

@@ -23,6 +23,11 @@ export async function resetPassword(app: FastifyInstance) {
           novaSenha: z.string().min(8),
           token: z.string(),
         }),
+        response: {
+          200: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
     async (req, res) => {

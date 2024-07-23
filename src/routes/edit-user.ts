@@ -26,7 +26,7 @@ export async function editUser(app: FastifyInstance) {
             .optional(),
         }),
         response: {
-          201: z.object({
+          200: z.object({
             message: z.string(),
             updatedUser: z.object({
               nome: z.string().min(3),
@@ -82,7 +82,7 @@ export async function editUser(app: FastifyInstance) {
         },
       });
 
-      return res.status(201).send({
+      return res.status(200).send({
         message: "Usuário atualizado com sucesso",
         updatedUser: {
           nome: updatedUser.nome,
