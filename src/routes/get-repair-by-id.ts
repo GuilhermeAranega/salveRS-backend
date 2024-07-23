@@ -64,7 +64,7 @@ export async function getRepair(app: FastifyInstance) {
         throw new Error("Token não validado");
       }
       return res.status(201).send({
-        message: "Item encontrado com sucesso",
+        message: "Conserto encontrado com sucesso",
         repair: {
           observacao: repair.observacao ?? "",
           data: repair.data,
