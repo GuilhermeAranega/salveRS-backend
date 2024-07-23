@@ -41,6 +41,7 @@ export async function authenticateUser(app: FastifyInstance) {
         userId: user.id,
         tipo: data.tipo,
         email: data.email,
+        volunteer: false,
       });
 
       return res.status(200).header("authorization", token).send({
