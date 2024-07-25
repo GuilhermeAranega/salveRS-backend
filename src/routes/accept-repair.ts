@@ -12,6 +12,8 @@ export async function acceptRepair(app: FastifyInstance) {
     "/volunteers/accept-repair/:id",
     {
       schema: {
+        summary: "Accept a repair solicitation",
+        tags: ["volunteers"],
         params: z.object({
           id: z.string().cuid(),
         }),

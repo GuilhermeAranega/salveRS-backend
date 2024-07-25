@@ -11,6 +11,8 @@ export async function getVolunteer(app: FastifyInstance) {
     "/volunteers",
     {
       schema: {
+        summary: "Get a volunteer",
+        tags: ["volunteers"],
         response: {
           200: z.object({
             message: z.string(),

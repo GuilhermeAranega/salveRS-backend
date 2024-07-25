@@ -11,6 +11,8 @@ export async function createVolunteer(app: FastifyInstance) {
     "/volunteers",
     {
       schema: {
+        summary: "Create a volunteer",
+        tags: ["volunteers"],
         body: z.object({
           nome: z.string().min(3),
           documento: z.string().min(11),

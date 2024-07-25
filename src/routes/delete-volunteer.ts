@@ -13,6 +13,8 @@ export async function deleteVolunteer(app: FastifyInstance) {
     "/volunteers/:id",
     {
       schema: {
+        summary: "Delete a volunteer",
+        tags: ["volunteers"],
         params: z.object({
           id: z.string().cuid(),
         }),
