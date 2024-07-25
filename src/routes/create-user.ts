@@ -15,7 +15,7 @@ export async function createUser(app: FastifyInstance) {
           documento: z.string().min(11),
           telefone: z.string().length(11),
           email: z.string().email(),
-          idade: z.number().int().positive().max(100),
+          idade: z.number().int().positive().min(16).max(100),
           senha: z.string().min(8),
           tipo: z.enum(["empresa", "pessoa_fisica"]),
           endereco: z.object({
@@ -46,10 +46,6 @@ export async function createUser(app: FastifyInstance) {
         if (!cnpj.isValid(data.documento)) {
           throw new Error("Número de CNPJ inválido");
         }
-      }
-
-      if (data.idade < 16) {
-        throw new Error("Idade mínima não atingida");
       }
 
       const existingUser = await prisma.usuarios.findUnique({
