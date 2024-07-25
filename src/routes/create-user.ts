@@ -49,12 +49,23 @@ export async function createUser(app: FastifyInstance) {
         }
       }
 
-      const existingUser = await prisma.usuarios.findUnique({
-        where: { email: data.email },
-      });
+      const [existingEmail, existingPhone, existingDocument] =
+        await Promise.all([
+          prisma.usuarios.findUnique({
+            where: { email: data.email },
+          }),
+          prisma.usuarios.findUnique({
+            where: { telefone: data.telefone },
+          }),
+          prisma.usuarios.findUnique({
+            where: { documento: data.documento },
+          }),
+        ]);
 
-      if (existingUser) {
-        throw new BadRequest("Já existe um outro usuário com esse email");
+      if (existingEmail || existingPhone || existingDocument) {
+        throw new BadRequest(
+          "Já existe um outro usuário com esse email, telefone ou documento"
+        );
       }
 
       const hashedSenha = await hashData(data.senha);

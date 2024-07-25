@@ -49,12 +49,23 @@ export async function createVolunteer(app: FastifyInstance) {
         }
       }
 
-      const existingVolunteer = await prisma.prestadores.findUnique({
-        where: { email: data.email },
-      });
+      const [existingEmail, existingPhone, existingDocument] =
+        await Promise.all([
+          prisma.prestadores.findUnique({
+            where: { email: data.email },
+          }),
+          prisma.prestadores.findUnique({
+            where: { telefone: data.telefone },
+          }),
+          prisma.prestadores.findUnique({
+            where: { documento: data.documento },
+          }),
+        ]);
 
-      if (existingVolunteer) {
-        throw new BadRequest("Já existe um outro voluntário com esse email");
+      if (existingEmail || existingPhone || existingDocument) {
+        throw new BadRequest(
+          "Já existe um outro voluntário com esse email, telefone ou documento"
+        );
       }
 
       const hashedSenha = await hashData(data.senha);
