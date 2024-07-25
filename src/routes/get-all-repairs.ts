@@ -84,7 +84,7 @@ export async function getAllRepairs(app: FastifyInstance) {
       }
 
       if (!repairs) {
-        throw new Error("Consertos não encontrados.");
+        throw new Error("Consertos não encontrados");
       }
 
       return res.status(201).send({

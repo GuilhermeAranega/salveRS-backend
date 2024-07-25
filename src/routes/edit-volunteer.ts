@@ -61,7 +61,7 @@ export async function editVolunteer(app: FastifyInstance) {
       });
 
       if (!existingVolunteer) {
-        throw new Error("Esse voluntário não existe");
+        throw new Error("Voluntário não encontrado");
       }
 
       const updatedUser = await prisma.prestadores.update({
