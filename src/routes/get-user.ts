@@ -14,6 +14,7 @@ export async function getUser(app: FastifyInstance) {
           200: z.object({
             message: z.string(),
             user: z.object({
+              id: z.string().cuid(),
               nome: z.string().min(3),
               telefone: z.string().length(11),
               email: z.string().email(),
@@ -39,6 +40,7 @@ export async function getUser(app: FastifyInstance) {
       const user = await prisma.usuarios.findUnique({
         where: { id: data.userId },
         select: {
+          id: true,
           nome: true,
           email: true,
           telefone: true,
@@ -62,6 +64,7 @@ export async function getUser(app: FastifyInstance) {
       return res.status(200).send({
         message: "Usuário encontrado",
         user: {
+          id: user.id,
           nome: user.nome,
           telefone: user.telefone,
           email: user.email,
