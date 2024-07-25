@@ -26,18 +26,20 @@ export async function getRepairById(app: FastifyInstance) {
                 nome: z.string(),
                 tipo: z.string(),
               }),
-              prestador: z.object({
-                nome: z.string(),
-                tipo: z.string(),
-                endereco: z.object({
-                  cep: z.string(),
-                  rua: z.string(),
-                  numero: z.number().int().positive().max(1000),
-                  complemento: z.string(),
-                  bairro: z.string(),
-                  cidade: z.string(),
-                }),
-              }),
+              prestador: z
+                .object({
+                  nome: z.string().nullish(),
+                  tipo: z.string().nullish(),
+                  endereco: z.object({
+                    cep: z.string().nullish(),
+                    rua: z.string().nullish(),
+                    numero: z.number().int().positive().max(1000).nullish(),
+                    complemento: z.string().nullish(),
+                    bairro: z.string().nullish(),
+                    cidade: z.string().nullish(),
+                  }),
+                })
+                .optional(),
             }),
           }),
         },
@@ -65,30 +67,46 @@ export async function getRepairById(app: FastifyInstance) {
       ) {
         throw new Unauthorized("Token não validado");
       }
-      return res.status(201).send({
-        message: "Conserto encontrado com sucesso",
-        repair: {
-          observacao: repair.observacao ?? "",
-          data: repair.data,
-          status: repair.status,
-          usuario: {
-            nome: repair.usuario.nome,
-            tipo: repair.usuario.tipo,
-          },
-          prestador: {
-            nome: repair.prestador.nome,
-            tipo: repair.prestador.tipo,
-            endereco: {
-              cep: repair.prestador.cep,
-              rua: repair.prestador.rua,
-              numero: repair.prestador.numero,
-              complemento: repair.prestador.complemento,
-              bairro: repair.prestador.bairro,
-              cidade: repair.prestador.cidade,
+
+      if (!repair.prestador) {
+        return res.status(201).send({
+          message: "Conserto encontrado com sucesso",
+          repair: {
+            observacao: repair.observacao ?? "",
+            data: repair.data,
+            status: repair.status,
+            usuario: {
+              nome: repair.usuario.nome,
+              tipo: repair.usuario.tipo,
             },
           },
-        },
-      });
+        });
+      } else {
+        return res.status(201).send({
+          message: "Conserto encontrado com sucesso",
+          repair: {
+            observacao: repair.observacao ?? "",
+            data: repair.data,
+            status: repair.status,
+            usuario: {
+              nome: repair.usuario.nome,
+              tipo: repair.usuario.tipo,
+            },
+            prestador: {
+              nome: repair.prestador.nome ?? "",
+              tipo: repair.prestador.tipo,
+              endereco: {
+                cep: repair.prestador.cep,
+                rua: repair.prestador.rua,
+                numero: repair.prestador.numero,
+                complemento: repair.prestador.complemento,
+                bairro: repair.prestador.bairro,
+                cidade: repair.prestador.cidade,
+              },
+            },
+          },
+        });
+      }
     }
   );
 }
