@@ -6,6 +6,7 @@ import {
   ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { fastifyJwt } from "@fastify/jwt";
+import { errorHandler } from "./error-handler";
 
 import { createUser } from "./routes/create-user";
 import { authenticateUser } from "./routes/authenticate-user";
@@ -69,6 +70,8 @@ app.register(getVolunteer);
 app.register(editVolunteer);
 app.register(deleteVolunteer);
 app.register(acceptRepair);
+
+app.setErrorHandler(errorHandler);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");
