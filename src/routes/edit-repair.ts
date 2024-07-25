@@ -42,7 +42,7 @@ export async function editRepair(app: FastifyInstance) {
       });
 
       if (!existingRepair) {
-        throw new Error("Esse conserto não existe");
+        throw new Error("Conserto não encontrado");
       }
 
       if (
