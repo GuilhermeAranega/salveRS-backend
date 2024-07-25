@@ -12,6 +12,8 @@ export async function createItem(app: FastifyInstance) {
     "/items",
     {
       schema: {
+        summary: "Create an item",
+        tags: ["items"],
         body: z.object({
           descricao: z.string().min(5),
           qtd: z.number().int().positive().min(1).max(20),

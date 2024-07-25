@@ -12,6 +12,8 @@ export async function deleteItem(app: FastifyInstance) {
     "/items/:id",
     {
       schema: {
+        summary: "Delete an item",
+        tags: ["items"],
         params: z.object({
           id: z.string().cuid(),
         }),

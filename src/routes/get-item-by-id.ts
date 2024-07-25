@@ -10,6 +10,8 @@ export async function getItemById(app: FastifyInstance) {
     "/items/:id",
     {
       schema: {
+        summary: "Get an item by id",
+        tags: ["items"],
         params: z.object({
           id: z.string().cuid(),
         }),
