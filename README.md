@@ -29,7 +29,7 @@ Os usuários conseguem criar pedidos, listar todos os dispositivos eletrônicos 
 4. **Listagem e Acompanhamento de Pedidos**
    - [x] Permitir que usuários listem todos os pedidos de conserto que criaram.
    - [x] Permitir que usuários acompanhem o status de cada pedido.
-   - [ ] Permitir que voluntários listem todos os pedidos disponíveis para conserto.
+   - [x] Permitir que voluntários listem todos os pedidos disponíveis para conserto.
 
 5. **Gestão de Voluntários**
    - [ ] Permitir que voluntários aceitem pedidos de conserto.
