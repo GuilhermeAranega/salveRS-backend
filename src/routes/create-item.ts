@@ -4,7 +4,6 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
-import { BadRequest } from "./_errors/bad-request";
 import { NotFound } from "./_errors/not-found";
 import { Unauthorized } from "./_errors/unauthorized";
 
