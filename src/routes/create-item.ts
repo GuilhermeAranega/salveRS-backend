@@ -12,7 +12,7 @@ export async function createItem(app: FastifyInstance) {
         body: z.object({
           descricao: z.string().min(5),
           qtd: z.number().int().positive().min(1).max(20),
-          consertoId: z.string().cuid(),
+          usuarioId: z.string().cuid(),
         }),
         response: {
           201: z.object({
@@ -21,26 +21,30 @@ export async function createItem(app: FastifyInstance) {
           }),
         },
       },
-      onRequest: [verifyJWT],
     },
     async (req, res) => {
-      const { descricao, qtd, consertoId } = req.body;
+      const { descricao, qtd, usuarioId } = req.body;
+      const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
-      const conserto = await prisma.consertos.findUnique({
-        where: { id: consertoId },
+      if (tokenData.userId !== usuarioId) {
+        throw new Error("Token não validado");
+      }
+
+      const user = await prisma.usuarios.findUnique({
+        where: { id: usuarioId },
       });
 
-      if (!conserto) {
-        throw new Error("conserto não encontrado");
+      if (!user) {
+        throw new Error("Usuário não encontrado");
       }
 
       const item = await prisma.itens.create({
         data: {
           descricao,
           quantidade: qtd,
-          conserto: {
+          usuario: {
             connect: {
-              id: consertoId,
+              id: usuarioId,
             },
           },
         },
