@@ -11,6 +11,8 @@ export async function editUser(app: FastifyInstance) {
     "/users",
     {
       schema: {
+        summary: "Edit an user",
+        tags: ["users"],
         body: z.object({
           nome: z.string().min(3),
           telefone: z.string().length(11).optional(),

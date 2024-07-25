@@ -11,6 +11,8 @@ export async function createUser(app: FastifyInstance) {
     "/users",
     {
       schema: {
+        summary: "Create an user",
+        tags: ["users"],
         body: z.object({
           nome: z.string().min(3),
           documento: z.string().min(11),

@@ -11,6 +11,8 @@ export async function getUser(app: FastifyInstance) {
     "/users",
     {
       schema: {
+        summary: "Get an user",
+        tags: ["users"],
         response: {
           200: z.object({
             message: z.string(),

@@ -10,6 +10,8 @@ export async function authenticateUser(app: FastifyInstance) {
     "/users/authenticate",
     {
       schema: {
+        summary: "Authenticate an user",
+        tags: ["users"],
         body: z.object({
           email: z.string().email(),
           senha: z.string().min(8),
