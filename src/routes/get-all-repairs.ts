@@ -23,16 +23,18 @@ export async function getAllRepairs(app: FastifyInstance) {
                 observacao: z.string().nullable(),
                 status: z.string(),
                 data: z.date(),
-                prestadorId: z.string().cuid(),
+                prestadorId: z.string().cuid().nullable(),
                 usuarioId: z.string().cuid(),
                 usuario: z.object({
                   nome: z.string(),
                   tipo: z.string(),
                 }),
-                prestador: z.object({
-                  nome: z.string(),
-                  tipo: z.string(),
-                }),
+                prestador: z
+                  .object({
+                    nome: z.string(),
+                    tipo: z.string(),
+                  })
+                  .nullable(),
               })
               .array(),
             total: z.number(),
