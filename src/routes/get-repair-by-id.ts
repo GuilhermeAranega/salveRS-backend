@@ -81,32 +81,31 @@ export async function getRepairById(app: FastifyInstance) {
             },
           },
         });
-      } else {
-        return res.status(201).send({
-          message: "Conserto encontrado com sucesso",
-          repair: {
-            observacao: repair.observacao ?? "",
-            data: repair.data,
-            status: repair.status,
-            usuario: {
-              nome: repair.usuario.nome,
-              tipo: repair.usuario.tipo,
-            },
-            prestador: {
-              nome: repair.prestador.nome ?? "",
-              tipo: repair.prestador.tipo,
-              endereco: {
-                cep: repair.prestador.cep,
-                rua: repair.prestador.rua,
-                numero: repair.prestador.numero,
-                complemento: repair.prestador.complemento,
-                bairro: repair.prestador.bairro,
-                cidade: repair.prestador.cidade,
-              },
+      }
+      return res.status(201).send({
+        message: "Conserto encontrado com sucesso",
+        repair: {
+          observacao: repair.observacao ?? "",
+          data: repair.data,
+          status: repair.status,
+          usuario: {
+            nome: repair.usuario.nome,
+            tipo: repair.usuario.tipo,
+          },
+          prestador: {
+            nome: repair.prestador.nome ?? "",
+            tipo: repair.prestador.tipo,
+            endereco: {
+              cep: repair.prestador.cep,
+              rua: repair.prestador.rua,
+              numero: repair.prestador.numero,
+              complemento: repair.prestador.complemento,
+              bairro: repair.prestador.bairro,
+              cidade: repair.prestador.cidade,
             },
           },
-        });
-      }
+        },
+      });
     }
   );
 }
