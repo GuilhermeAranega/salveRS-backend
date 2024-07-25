@@ -3,6 +3,8 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
+import { JWTPayload } from "./utils/jwt-payload";
+import { BadRequest } from "./_errors/bad-request";
 
 export async function deleteItem(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
@@ -16,9 +18,7 @@ export async function deleteItem(app: FastifyInstance) {
     },
     async (req, res) => {
       const { id } = req.params;
-
-      const tokenData = await verifyJWT;
-      console.log(tokenData); // ! ver token pra validar se o item que vai ser excluido pertence ao usuario
+      const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       const item = await prisma.itens.findUnique({
         where: { id },
@@ -26,10 +26,13 @@ export async function deleteItem(app: FastifyInstance) {
           conserto: true,
         },
       });
-      console.log(item);
 
       if (!item) {
         throw new Error("Item não encontrado");
+      }
+
+      if (item.conserto?.usuarioId != tokenData.userId) {
+        throw new BadRequest("Token não validado");
       }
 
       await prisma.itens.delete({
