@@ -11,7 +11,6 @@ export async function createRepair(app: FastifyInstance) {
     {
       schema: {
         body: z.object({
-          prestadorId: z.string().cuid(),
           usuarioId: z.string().cuid(),
           itensIds: z.string().cuid().array(),
           observacao: z.string().optional(),
@@ -25,7 +24,7 @@ export async function createRepair(app: FastifyInstance) {
       },
     },
     async (req, res) => {
-      const { prestadorId, usuarioId, itensIds, observacao } = req.body;
+      const { usuarioId, itensIds, observacao } = req.body;
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       if (tokenData.userId != usuarioId) {
@@ -34,11 +33,6 @@ export async function createRepair(app: FastifyInstance) {
 
       const repair = await prisma.consertos.create({
         data: {
-          prestador: {
-            connect: {
-              id: prestadorId,
-            },
-          },
           usuario: {
             connect: {
               id: usuarioId,
