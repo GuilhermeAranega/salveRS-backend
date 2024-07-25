@@ -57,7 +57,7 @@ export async function editUser(app: FastifyInstance) {
       });
 
       if (!existingUser) {
-        throw new Error("Esse usuário não existe");
+        throw new Error("Usuário não encontrado");
       }
 
       const updatedUser = await prisma.usuarios.update({
