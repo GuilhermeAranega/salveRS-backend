@@ -22,6 +22,12 @@ import { editRepair } from "./routes/edit-repair";
 import { createRepair } from "./routes/create-repair";
 import { deleteRepair } from "./routes/delete-repair";
 import { createVolunteer } from "./routes/create-volunteer";
+import { editVolunteer } from "./routes/edit-volunteer";
+import { authenticateVolunteer } from "./routes/authenticate-volunteer";
+import { requestVolunteerPasswordReset } from "./routes/request-volunteer-password-reset";
+import { resetVolunteerPassword } from "./routes/reset-volunteer.password";
+import { getVolunteer } from "./routes/get-volunteer";
+import { deleteVolunteer } from "./routes/delete-volunteer";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -48,6 +54,15 @@ app.register(createRepair);
 app.register(getRepairById);
 app.register(editRepair);
 app.register(deleteRepair);
+
+// ? Volunteer Routes
+app.register(createVolunteer);
+app.register(authenticateVolunteer);
+app.register(requestVolunteerPasswordReset);
+app.register(resetVolunteerPassword);
+app.register(getVolunteer);
+app.register(editVolunteer);
+app.register(deleteVolunteer);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");
