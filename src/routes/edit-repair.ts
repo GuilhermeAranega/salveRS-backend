@@ -27,22 +27,6 @@ export async function editRepair(app: FastifyInstance) {
               observacao: z.string().optional(),
               status: z.string(),
               data: z.date(),
-              usuario: z.object({
-                nome: z.string(),
-                tipo: z.string(),
-              }),
-              prestador: z.object({
-                nome: z.string(),
-                tipo: z.string(),
-                endereco: z.object({
-                  cep: z.string(),
-                  rua: z.string(),
-                  numero: z.number().int().positive().max(1000),
-                  complemento: z.string(),
-                  bairro: z.string(),
-                  cidade: z.string(),
-                }),
-              }),
             }),
           }),
         },
@@ -54,7 +38,7 @@ export async function editRepair(app: FastifyInstance) {
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       const existingRepair = await prisma.consertos.findUnique({
-        where: { id: tokenData.userId },
+        where: { id },
       });
 
       if (!existingRepair) {
@@ -80,27 +64,11 @@ export async function editRepair(app: FastifyInstance) {
       });
 
       return res.status(200).send({
-        message: "Usuário atualizado com sucesso",
+        message: "Reparo atualizado com sucesso",
         updatedRepair: {
           observacao: updatedRepair.observacao ?? "",
           data: updatedRepair.data,
           status: updatedRepair.status,
-          usuario: {
-            nome: updatedRepair.usuario.nome,
-            tipo: updatedRepair.usuario.tipo,
-          },
-          prestador: {
-            nome: updatedRepair.prestador.nome,
-            tipo: updatedRepair.prestador.tipo,
-            endereco: {
-              cep: updatedRepair.prestador.cep,
-              rua: updatedRepair.prestador.rua,
-              numero: updatedRepair.prestador.numero,
-              complemento: updatedRepair.prestador.complemento,
-              bairro: updatedRepair.prestador.bairro,
-              cidade: updatedRepair.prestador.cidade,
-            },
-          },
         },
       });
     }
