@@ -4,7 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 
-export async function getItem(app: FastifyInstance) {
+export async function getItemById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     "/items/:id",
     {

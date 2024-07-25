@@ -5,7 +5,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 
-export async function getRepair(app: FastifyInstance) {
+export async function getRepairById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     "/repairs/:id",
     {
