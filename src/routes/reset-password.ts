@@ -3,10 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { hashData } from "./utils/hash-data";
-import {
-  compareHashedData,
-  compareHashedData,
-} from "./utils/compare-hashed-data";
+import { compareHashedData } from "./utils/compare-hashed-data";
 import { NotFound } from "./_errors/not-found";
 import { Unauthorized } from "./_errors/unauthorized";
 import { BadRequest } from "./_errors/bad-request";
