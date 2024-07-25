@@ -14,13 +14,14 @@ import { resetPassword } from "./routes/reset-password";
 import { getUser } from "./routes/get-user";
 import { deleteUser } from "./routes/delete-user";
 import { createItem } from "./routes/create-item";
-import { getItem } from "./routes/get-item";
+import { getItemById } from "./routes/get-item-by-id";
 import { deleteItem } from "./routes/delete-item";
 import { editUser } from "./routes/edit-user";
-import { getRepair } from "./routes/get-repair";
+import { getRepairById } from "./routes/get-repair-by-id";
 import { editRepair } from "./routes/edit-repair";
 import { createRepair } from "./routes/create-repair";
 import { deleteRepair } from "./routes/delete-repair";
+import { createVolunteer } from "./routes/create-volunteer";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -28,6 +29,7 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 app.register(fastifyJwt, { secret: "key", sign: { expiresIn: "3d" } });
 
+// ? User Routes
 app.register(createUser);
 app.register(authenticateUser);
 app.register(requestPasswordReset);
@@ -35,12 +37,16 @@ app.register(resetPassword);
 app.register(getUser);
 app.register(editUser);
 app.register(deleteUser);
+
+// ? Item Routes
 app.register(createItem);
-app.register(getItem);
+app.register(getItemById);
 app.register(deleteItem);
-app.register(getRepair);
-app.register(editRepair);
+
+// ? Repair Routes
 app.register(createRepair);
+app.register(getRepairById);
+app.register(editRepair);
 app.register(deleteRepair);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
