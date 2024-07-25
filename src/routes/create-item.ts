@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
+import { JWTPayload } from "./utils/jwt-payload";
 
 export async function createItem(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
