@@ -1,4 +1,8 @@
 import fastify from "fastify";
+
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
+
 import {
   jsonSchemaTransform,
   serializerCompiler,
@@ -34,6 +38,26 @@ import { getAllRepairs } from "./routes/get-all-repairs";
 import { acceptRepair } from "./routes/accept-repair";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+app.register(fastifySwagger, {
+  swagger: {
+    consumes: ["application/json"],
+    produces: ["application/json"],
+    info: {
+      title: "SalveRS API",
+      description: "Especificações da API para o projeto SalveRS",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+
+app.register(fastifySwaggerUI, {
+  routePrefix: "/docs",
+});
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
