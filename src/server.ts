@@ -30,6 +30,7 @@ import { getVolunteer } from "./routes/get-volunteer";
 import { deleteVolunteer } from "./routes/delete-volunteer";
 import { getAllItems } from "./routes/get-all-items";
 import { getAllRepairs } from "./routes/get-all-repairs";
+import { acceptRepair } from "./routes/accept-repair";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -67,6 +68,7 @@ app.register(resetVolunteerPassword);
 app.register(getVolunteer);
 app.register(editVolunteer);
 app.register(deleteVolunteer);
+app.register(acceptRepair);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP Server running on port 3333");
