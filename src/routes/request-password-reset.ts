@@ -10,6 +10,8 @@ export async function requestPasswordReset(app: FastifyInstance) {
     "/users/reset",
     {
       schema: {
+        summary: "Send password reset email",
+        tags: ["users"],
         body: z.object({
           email: z.string().email(),
         }),
