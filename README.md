@@ -18,7 +18,7 @@ Os usuários conseguem criar pedidos, listar todos os dispositivos eletrônicos 
 
 2. **Login e Autenticação**
    - [x] Permitir que usuários façam login na aplicação.
-   - [ ] Permitir que voluntários façam login na aplicação.
+   - [x] Permitir que voluntários façam login na aplicação.
    - [x] Implementar recuperação de senha.
 
 3. **Gestão de Pedidos de Conserto**
