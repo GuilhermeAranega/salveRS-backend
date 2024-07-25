@@ -33,8 +33,8 @@ Os usuários conseguem criar pedidos, listar todos os dispositivos eletrônicos 
 
 5. **Gestão de Voluntários**
    - [x] Permitir que voluntários aceitem pedidos de conserto.
-   - [ ] Permitir que voluntários marquem pedidos como concluídos.
-   - [ ] Registrar o histórico de consertos realizados pelos voluntários.
+   - [x] Permitir que voluntários marquem pedidos como concluídos.
+   - [x] Registrar o histórico de consertos realizados pelos voluntários.
 
 6. **Notificações**
    - [ ] Enviar notificações para os usuários sobre atualizações no status dos seus pedidos.
