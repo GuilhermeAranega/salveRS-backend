@@ -28,6 +28,8 @@ import { requestVolunteerPasswordReset } from "./routes/request-volunteer-passwo
 import { resetVolunteerPassword } from "./routes/reset-volunteer.password";
 import { getVolunteer } from "./routes/get-volunteer";
 import { deleteVolunteer } from "./routes/delete-volunteer";
+import { getAllItems } from "./routes/get-all-items";
+import { getAllRepairs } from "./routes/get-all-repairs";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -47,11 +49,13 @@ app.register(deleteUser);
 // ? Item Routes
 app.register(createItem);
 app.register(getItemById);
+app.register(getAllItems);
 app.register(deleteItem);
 
 // ? Repair Routes
 app.register(createRepair);
 app.register(getRepairById);
+app.register(getAllRepairs);
 app.register(editRepair);
 app.register(deleteRepair);
 
