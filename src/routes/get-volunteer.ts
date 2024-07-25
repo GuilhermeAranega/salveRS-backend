@@ -1,3 +1,4 @@
+import { NotFound } from "./_errors/not-found";
 import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -58,7 +59,7 @@ export async function getVolunteer(app: FastifyInstance) {
       });
 
       if (!volunteer) {
-        throw new Error("Voluntário não encontrado");
+        throw new NotFound("Voluntário não encontrado");
       }
 
       return res.status(200).send({

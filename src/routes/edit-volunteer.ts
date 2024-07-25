@@ -4,6 +4,8 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { NotFound } from "./_errors/not-found";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function editVolunteer(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(
@@ -53,7 +55,7 @@ export async function editVolunteer(app: FastifyInstance) {
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       if (!tokenData.volunteer) {
-        throw new Error("Você não tem permissão para acessar essa rota");
+        throw new Unauthorized("Você não tem permissão para acessar essa rota");
       }
 
       const existingVolunteer = await prisma.prestadores.findUnique({
@@ -61,7 +63,7 @@ export async function editVolunteer(app: FastifyInstance) {
       });
 
       if (!existingVolunteer) {
-        throw new Error("Voluntário não encontrado");
+        throw new NotFound("Voluntário não encontrado");
       }
 
       const updatedUser = await prisma.prestadores.update({

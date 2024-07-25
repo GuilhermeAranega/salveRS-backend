@@ -1,3 +1,4 @@
+import { NotFound } from "./_errors/not-found";
 import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -5,6 +6,7 @@ import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
 import { BadRequest } from "./_errors/bad-request";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function deleteItem(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
@@ -28,11 +30,11 @@ export async function deleteItem(app: FastifyInstance) {
       });
 
       if (!item) {
-        throw new Error("Item não encontrado");
+        throw new NotFound("Item não encontrado");
       }
 
       if (item.conserto?.usuarioId != tokenData.userId) {
-        throw new BadRequest("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
 
       await prisma.itens.delete({

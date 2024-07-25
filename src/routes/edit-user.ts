@@ -4,6 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { NotFound } from "./_errors/not-found";
 
 export async function editUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(
@@ -57,7 +58,7 @@ export async function editUser(app: FastifyInstance) {
       });
 
       if (!existingUser) {
-        throw new Error("Usuário não encontrado");
+        throw new NotFound("Usuário não encontrado");
       }
 
       const updatedUser = await prisma.usuarios.update({

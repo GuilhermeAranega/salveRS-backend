@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
+import { NotFound } from "./_errors/not-found";
 
 export async function getAllItems(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -38,7 +39,7 @@ export async function getAllItems(app: FastifyInstance) {
       });
 
       if (items.length == 0) {
-        throw new Error("Item não encontrado");
+        throw new NotFound("Itens não encontrados");
       }
 
       return res.status(201).send({

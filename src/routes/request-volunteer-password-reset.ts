@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { sendEmail } from "./utils/send-email";
+import { NotFound } from "./_errors/not-found";
 
 export async function requestVolunteerPasswordReset(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -27,7 +28,7 @@ export async function requestVolunteerPasswordReset(app: FastifyInstance) {
       });
 
       if (!volunteer) {
-        throw new Error("Email não cadastrado");
+        throw new NotFound("Email não cadastrado");
       }
 
       const token = await res.jwtSign(

@@ -1,3 +1,5 @@
+import { BadRequest } from "./_errors/bad-request";
+import { Unauthorized } from "./_errors/unauthorized";
 import { prisma } from "../lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -26,7 +28,7 @@ export async function acceptRepair(app: FastifyInstance) {
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       if (!tokenData.volunteer) {
-        throw new Error("Você não tem permissão para acessar essa rota");
+        throw new Unauthorized("Você não tem permissão para acessar essa rota");
       }
 
       const existingRepair = await prisma.consertos.findUnique({
@@ -34,11 +36,11 @@ export async function acceptRepair(app: FastifyInstance) {
       });
 
       if (!existingRepair) {
-        throw new Error("Conserto não encontrado");
+        throw new BadRequest("Conserto não encontrado");
       }
 
       if (existingRepair.prestadorId) {
-        throw new Error("Ese conserto já foi aceito por um voluntário");
+        throw new BadRequest("Ese conserto já foi aceito por um voluntário");
       }
 
       const repair = await prisma.consertos.update({

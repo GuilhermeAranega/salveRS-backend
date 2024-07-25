@@ -3,7 +3,13 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { hashData } from "./utils/hash-data";
-import { compareHashedData } from "./utils/compare-hashed-data";
+import {
+  compareHashedData,
+  compareHashedData,
+} from "./utils/compare-hashed-data";
+import { NotFound } from "./_errors/not-found";
+import { Unauthorized } from "./_errors/unauthorized";
+import { BadRequest } from "./_errors/bad-request";
 
 interface JWTPayload {
   email: string;
@@ -46,17 +52,17 @@ export async function resetPassword(app: FastifyInstance) {
       ]);
 
       if (!user || !link) {
-        throw new Error("Usuário ou token não encontrado");
+        throw new NotFound("Usuário ou token não encontrado");
       }
 
       const tokenData = (await app.jwt.verify(token)) as JWTPayload;
 
       if (tokenData.email != user.email || tokenData.userId != user.id) {
-        throw new Error("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
 
       if (await compareHashedData(user.senha, novaSenha)) {
-        throw new Error("A senha não pode ser igual a anterior");
+        throw new BadRequest("A senha não pode ser igual a anterior");
       }
 
       const hashedNovaSenha = await hashData(novaSenha);

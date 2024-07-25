@@ -4,6 +4,8 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { BadRequest } from "./_errors/bad-request";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function createRepair(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -28,7 +30,7 @@ export async function createRepair(app: FastifyInstance) {
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       if (tokenData.userId != usuarioId) {
-        throw new Error("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
 
       const repair = await prisma.consertos.create({

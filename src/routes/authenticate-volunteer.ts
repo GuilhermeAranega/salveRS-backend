@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { compareHashedData } from "./utils/compare-hashed-data";
+import { BadRequest } from "./_errors/bad-request";
 
 export async function authenticateVolunteer(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -30,11 +31,11 @@ export async function authenticateVolunteer(app: FastifyInstance) {
       });
 
       if (!volunteer) {
-        throw new Error("Email não cadastrado ou senha inválida");
+        throw new BadRequest("Email não cadastrado ou senha inválida");
       }
 
       if (!(await compareHashedData(volunteer.senha, data.senha))) {
-        throw new Error("Email não cadastrado ou senha inválida");
+        throw new BadRequest("Email não cadastrado ou senha inválida");
       }
 
       const token = await res.jwtSign({

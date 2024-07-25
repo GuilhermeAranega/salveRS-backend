@@ -4,6 +4,8 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
+import { NotFound } from "./_errors/not-found";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function getRepairById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -54,14 +56,14 @@ export async function getRepairById(app: FastifyInstance) {
       });
 
       if (!repair) {
-        throw new Error("Conserto não encontrado");
+        throw new NotFound("Conserto não encontrado");
       }
 
       if (
         repair.prestadorId != tokenData.userId &&
         repair.usuarioId != tokenData.userId
       ) {
-        throw new Error("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
       return res.status(201).send({
         message: "Conserto encontrado com sucesso",

@@ -4,6 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { NotFound } from "./_errors/not-found";
 
 export async function getUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -58,7 +59,7 @@ export async function getUser(app: FastifyInstance) {
       });
 
       if (!user) {
-        throw new Error("Usuário não encontrado");
+        throw new NotFound("Usuário não encontrado");
       }
 
       return res.status(200).send({

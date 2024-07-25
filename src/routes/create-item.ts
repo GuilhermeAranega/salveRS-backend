@@ -4,6 +4,9 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { BadRequest } from "./_errors/bad-request";
+import { NotFound } from "./_errors/not-found";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function createItem(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -28,7 +31,7 @@ export async function createItem(app: FastifyInstance) {
       const tokenData = (await verifyJWT(req, res)) as JWTPayload;
 
       if (tokenData.userId !== usuarioId) {
-        throw new Error("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
 
       const user = await prisma.usuarios.findUnique({
@@ -36,7 +39,7 @@ export async function createItem(app: FastifyInstance) {
       });
 
       if (!user) {
-        throw new Error("Usuário não encontrado");
+        throw new NotFound("Usuário não encontrado");
       }
 
       const item = await prisma.itens.create({

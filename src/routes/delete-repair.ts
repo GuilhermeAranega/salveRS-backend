@@ -4,6 +4,9 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { NotFound } from "./_errors/not-found";
+import { BadRequest } from "./_errors/bad-request";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function deleteRepair(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
@@ -24,11 +27,11 @@ export async function deleteRepair(app: FastifyInstance) {
       });
 
       if (!repair) {
-        throw new Error("Conserto não encontrado");
+        throw new NotFound("Conserto não encontrado");
       }
 
       if (tokenData.userId != repair.usuarioId) {
-        throw new Error("Token não validado");
+        throw new Unauthorized("Token não validado");
       }
 
       await prisma.consertos.delete({

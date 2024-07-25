@@ -4,6 +4,9 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
+import { BadRequest } from "./_errors/bad-request";
+import { NotFound } from "./_errors/not-found";
+import { Unauthorized } from "./_errors/unauthorized";
 
 export async function deleteUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
@@ -20,7 +23,7 @@ export async function deleteUser(app: FastifyInstance) {
       const { id } = req.params;
 
       if (data.userId != id) {
-        throw new Error("Token inválido");
+        throw new Unauthorized("Token inválido");
       }
 
       const user = await prisma.usuarios.findUnique({
@@ -28,7 +31,7 @@ export async function deleteUser(app: FastifyInstance) {
       });
 
       if (!user) {
-        throw new Error("Usuário não encontrado");
+        throw new NotFound("Usuário não encontrado");
       }
 
       await prisma.usuarios.delete({

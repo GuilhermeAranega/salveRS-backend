@@ -4,6 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { cpf, cnpj } from "cpf-cnpj-validator";
 import { hashData } from "./utils/hash-data";
+import { BadRequest } from "./_errors/bad-request";
 
 export async function createVolunteer(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -40,11 +41,11 @@ export async function createVolunteer(app: FastifyInstance) {
 
       if (data.tipo == "pessoa_fisica") {
         if (!cpf.isValid(data.documento)) {
-          throw new Error("Número de CPF inválido");
+          throw new BadRequest("Número de CPF inválido");
         }
       } else {
         if (!cnpj.isValid(data.documento)) {
-          throw new Error("Número de CNPJ inválido");
+          throw new BadRequest("Número de CNPJ inválido");
         }
       }
 
@@ -53,7 +54,7 @@ export async function createVolunteer(app: FastifyInstance) {
       });
 
       if (existingVolunteer) {
-        throw new Error("Já existe um outro voluntário com esse email");
+        throw new BadRequest("Já existe um outro voluntário com esse email");
       }
 
       const hashedSenha = await hashData(data.senha);
