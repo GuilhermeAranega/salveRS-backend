@@ -13,6 +13,8 @@ export async function deleteRepair(app: FastifyInstance) {
     "/repairs/:id",
     {
       schema: {
+        summary: "Delete a repair",
+        tags: ["repairs"],
         params: z.object({
           id: z.string().cuid(),
         }),

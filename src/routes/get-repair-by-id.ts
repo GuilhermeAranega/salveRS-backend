@@ -12,6 +12,8 @@ export async function getRepairById(app: FastifyInstance) {
     "/repairs/:id",
     {
       schema: {
+        summary: "Get a repair by its id",
+        tags: ["repairs"],
         params: z.object({
           id: z.string().cuid(),
         }),

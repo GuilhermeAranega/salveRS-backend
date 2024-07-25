@@ -12,6 +12,8 @@ export async function getAllRepairs(app: FastifyInstance) {
     "/repairs",
     {
       schema: {
+        summary: "Get all repairs by user",
+        tags: ["repairs"],
         querystring: z.object({
           pageIndex: z.string().nullish().default("0").transform(Number),
         }),

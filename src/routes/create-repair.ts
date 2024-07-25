@@ -12,6 +12,8 @@ export async function createRepair(app: FastifyInstance) {
     "/repairs",
     {
       schema: {
+        summary: "Create a repair",
+        tags: ["repairs"],
         body: z.object({
           usuarioId: z.string().cuid(),
           itensIds: z.string().cuid().array(),
