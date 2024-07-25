@@ -52,7 +52,7 @@ export async function createRepair(app: FastifyInstance) {
       });
 
       return res.status(201).send({
-        message: "Item criado com sucesso",
+        message: "Conserto criado com sucesso",
         repairId: repair.id,
       });
     }
