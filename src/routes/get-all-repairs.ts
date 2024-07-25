@@ -20,6 +20,7 @@ export async function getAllRepairs(app: FastifyInstance) {
             message: z.string(),
             repairs: z
               .object({
+                id: z.string().cuid(),
                 observacao: z.string().nullable(),
                 status: z.string(),
                 data: z.date(),
@@ -52,6 +53,7 @@ export async function getAllRepairs(app: FastifyInstance) {
             ? { prestadorId: tokenData.userId }
             : { usuarioId: tokenData.userId },
           select: {
+            id: true,
             observacao: true,
             status: true,
             data: true,
