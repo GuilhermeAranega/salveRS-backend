@@ -41,8 +41,8 @@ Table prestadores {
 
 Table consertos {
   id String [pk]
-  prestador prestadores [not null]
-  prestadorId String [not null]
+  prestador prestadores
+  prestadorId String
   usuario usuarios [not null]
   usuarioId String [not null]
   itens itens [not null]

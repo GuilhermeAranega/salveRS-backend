@@ -76,8 +76,8 @@ model Prestadores {
 model Consertos {
   id String @id @default(cuid())
 
-  prestador   Prestadores @relation(fields: [prestadorId], references: [id])
-  prestadorId String
+  prestador   Prestadores? @relation(fields: [prestadorId], references: [id])
+  prestadorId String?
 
   usuario   Usuarios @relation(fields: [usuarioId], references: [id])
   usuarioId String
