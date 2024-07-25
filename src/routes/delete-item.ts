@@ -5,7 +5,6 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { verifyJWT } from "../middleware/jwtAuth";
 import { JWTPayload } from "./utils/jwt-payload";
-import { BadRequest } from "./_errors/bad-request";
 import { Unauthorized } from "./_errors/unauthorized";
 
 export async function deleteItem(app: FastifyInstance) {
