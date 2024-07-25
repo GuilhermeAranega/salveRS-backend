@@ -46,6 +46,7 @@ model Usuarios {
 
   tipo     Tipo        @default(pessoa_fisica)
   conserto Consertos[]
+  Itens    Itens[]
 
   @@map(name: "usuarios")
 }
@@ -95,8 +96,11 @@ model Itens {
   descricao  String
   quantidade Int
 
-  conserto    Consertos @relation(fields: [consertosId], references: [id])
-  consertosId String
+  conserto    Consertos? @relation(fields: [consertosId], references: [id])
+  consertosId String?
+
+  usuario    Usuarios @relation(fields: [usuariosId], references: [id])
+  usuariosId String
 
   @@map(name: "itens")
 }

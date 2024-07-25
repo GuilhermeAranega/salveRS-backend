@@ -18,6 +18,7 @@ Table usuarios {
   cidade String [not null]
   tipo Tipo [not null, default: 'pessoa_fisica']
   conserto consertos [not null]
+  Itens itens [not null]
 }
 
 Table prestadores {
@@ -54,8 +55,10 @@ Table itens {
   id String [pk]
   descricao String [not null]
   quantidade Int [not null]
-  conserto consertos [not null]
-  consertosId String [not null]
+  conserto consertos
+  consertosId String
+  usuario usuarios [not null]
+  usuariosId String [not null]
 }
 
 Table links {
@@ -81,3 +84,5 @@ Ref: consertos.prestadorId > prestadores.id
 Ref: consertos.usuarioId > usuarios.id
 
 Ref: itens.consertosId > consertos.id
+
+Ref: itens.usuariosId > usuarios.id
