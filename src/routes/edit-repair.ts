@@ -7,6 +7,7 @@ import { JWTPayload } from "./utils/jwt-payload";
 import { NotFound } from "./_errors/not-found";
 import { BadRequest } from "./_errors/bad-request";
 import { Unauthorized } from "./_errors/unauthorized";
+import console from "console";
 
 export async function editRepair(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(
@@ -48,10 +49,7 @@ export async function editRepair(app: FastifyInstance) {
         throw new NotFound("Conserto não encontrado");
       }
 
-      if (
-        existingRepair.prestadorId != tokenData.userId &&
-        existingRepair.usuarioId != tokenData.userId
-      ) {
+      if (data.usuarioId != tokenData.userId) {
         throw new Unauthorized("Token não validado");
       }
 
