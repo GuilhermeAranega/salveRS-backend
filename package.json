@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env.local src/server.ts",
-    "migrate:prisma": "dotenv -e .env.local -- npx prisma migrate dev",
-    "studio:prisma": "dotenv -e .env.local -- npx prisma studio"
+    "dev": "tsx watch --env-file .env src/server.ts",
+    "migrate:prisma": "dotenv -e .env -- npx prisma migrate dev",
+    "studio:prisma": "dotenv -e .env -- npx prisma studio"
   },
   "keywords": [],
   "author": "",
