@@ -1,6 +1,5 @@
 import { prisma } from "../src/lib/prisma";
 import { faker } from "@faker-js/faker";
-import { Prisma } from "@prisma/client";
 
 async function seed() {
   const userId = "clz1xebvd000008lc9ary6514";
@@ -15,11 +14,11 @@ async function seed() {
 
   const itemId = "clz1ycgx8000108jv9r685tda";
 
+  await prisma.itens.deleteMany();
+  await prisma.consertos.deleteMany();
   await prisma.usuarios.deleteMany();
   await prisma.prestadores.deleteMany();
-  await prisma.consertos.deleteMany();
   await prisma.links.deleteMany();
-  await prisma.itens.deleteMany();
 
   await prisma.usuarios.create({
     data: {
@@ -66,11 +65,6 @@ async function seed() {
           id: itemId,
           descricao: "Computador",
           quantidade: 1,
-          conserto: {
-            connect: {
-              id: repairId,
-            },
-          },
         },
       },
     },
