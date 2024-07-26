@@ -43,3 +43,32 @@ Os usuários conseguem criar pedidos, listar todos os dispositivos eletrônicos 
 7. **Interface de Usuário**
    - [ ] Fornecer uma interface amigável para navegação e uso da aplicação.
    - [ ] Implementar uma dashboard para usuários e voluntários visualizarem suas atividades e pedidos.
+
+## Como usar:
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/GuilhermeAranega/salveRS-backend
+cd ./salveRS-backend
+```
+
+2. Instale as dependências
+```bash
+npm i
+```
+
+3. Troque as variáveis do .env
+```shell
+DATABASE_URL="URL DO POSTGRESQL"
+RESEND_TOKEN="TOKEN DO RESEND"
+```
+
+4. Faça o seed do banco de dados com o prisma
+```bash
+npx prisma db seed
+```
+
+5. Rode a API
+```bash
+npm run dev
+```
