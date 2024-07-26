@@ -1,6 +1,6 @@
 # Salve RS
 
-O Salve RS é uma aplicação de **gestão de voluntários e consertos à dispositivos eletrônicos** afetados pelas enchentes no Rio Grande do Sul.
+O Salve RS é uma aplicação de **gestão de voluntários e consertos a dispositivos eletrônicos** afetados pelas enchentes no Rio Grande do Sul.
 
 A aplicação permite que um usuário se cadastre como pessoa física ou empresa para conseguir criar pedidos de conserto.
 Também permite que voluntários se cadastrem com o objetivo de receber esses pedidos e ajudar a comunidade.
