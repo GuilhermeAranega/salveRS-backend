@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/server.ts",
-    "migrate:prisma": "dotenv -e .env -- npx prisma migrate dev",
-    "studio:prisma": "dotenv -e .env -- npx prisma studio"
+    "dev": "tsx watch --env-file .env.local src/server.ts",
+    "migrate:prisma": "dotenv -e .env.local -- npx prisma migrate dev",
+    "studio:prisma": "dotenv -e .env.local -- npx prisma studio"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@fastify/cookie": "^9.3.1",
     "@fastify/jwt": "^8.0.1",
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^4.0.1",
