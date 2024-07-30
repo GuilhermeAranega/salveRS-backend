@@ -49,6 +49,13 @@ export async function createRepair(app: FastifyInstance) {
         },
       });
 
+      await prisma.notificacoes.create({
+        data: {
+          message: "Há um novo conserto disponível",
+          global: true,
+        },
+      });
+
       return res.status(201).send({
         message: "Conserto criado com sucesso",
         repairId: repair.id,
