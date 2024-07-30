@@ -37,8 +37,8 @@ Os usuários conseguem criar pedidos, listar todos os dispositivos eletrônicos 
    - [x] Registrar o histórico de consertos realizados pelos voluntários.
 
 6. **Notificações**
-   - [ ] Enviar notificações para os usuários sobre atualizações no status dos seus pedidos.
-   - [ ] Enviar notificações para os voluntários sobre novos pedidos disponíveis.
+   - [x] Enviar notificações para os usuários sobre atualizações no status dos seus pedidos.
+   - [x] Enviar notificações para os voluntários sobre novos pedidos disponíveis.
 
 7. **Interface de Usuário**
    - [ ] Fornecer uma interface amigável para navegação e uso da aplicação.
