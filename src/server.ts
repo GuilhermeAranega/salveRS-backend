@@ -11,6 +11,7 @@ import {
 } from "fastify-type-provider-zod";
 import { fastifyJwt } from "@fastify/jwt";
 import { errorHandler } from "./error-handler";
+import fCookie from "@fastify/cookie";
 
 import { createUser } from "./routes/create-user";
 import { authenticateUser } from "./routes/authenticate-user";
@@ -63,6 +64,9 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 app.register(fastifyJwt, { secret: "key", sign: { expiresIn: "3d" } });
+app.register(fCookie, {
+  secret: process.env.COOKIE_SECRET,
+});
 
 // ? User Routes
 app.register(createUser);
