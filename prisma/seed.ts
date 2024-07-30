@@ -1,5 +1,6 @@
 import { prisma } from "../src/lib/prisma";
 import { faker } from "@faker-js/faker";
+import { hashData } from "../src/routes/utils/hash-data";
 
 async function seed() {
   const userId = "clz1xebvd000008lc9ary6514";
@@ -28,7 +29,7 @@ async function seed() {
       telefone: "12345678901",
       email: userEmail,
       idade: 20,
-      senha: userPassword,
+      senha: await hashData(userPassword),
       tipo: "pessoa_fisica",
       cep: "12224300",
       rua: "Rodovia Presidente Dutra",
@@ -48,7 +49,7 @@ async function seed() {
               telefone: "09876543210",
               email: volunteerEmail,
               idade: 20,
-              senha: volunteerPassword,
+              senha: await hashData(volunteerPassword),
               tipo: "pessoa_fisica",
               cep: "12224300",
               rua: "Rodovia Presidente Dutra",
