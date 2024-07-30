@@ -115,3 +115,15 @@ model Links {
 
   @@map(name: "links")
 }
+
+model Notificacoes {
+  id     String  @id @default(cuid())
+  userId String? @map("user_id")
+
+  message String
+  global  Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "notificacoes")
+}

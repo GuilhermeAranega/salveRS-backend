@@ -68,6 +68,14 @@ Table links {
   createdAt DateTime [default: `now()`, not null]
 }
 
+Table notificacoes {
+  id String [pk]
+  userId String
+  message String [not null]
+  global Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+}
+
 Enum Tipo {
   empresa
   pessoa_fisica
