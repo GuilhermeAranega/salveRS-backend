@@ -10,6 +10,8 @@ export async function getAllPendingRepairs(app: FastifyInstance) {
     "/repairs/pending",
     {
       schema: {
+        summary: "Get all repairs that are pending",
+        tags: ["repairs"],
         querystring: z.object({
           pageIndex: z.string().nullish().default("0").transform(Number),
         }),
