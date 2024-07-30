@@ -54,6 +54,24 @@ export async function acceptRepair(app: FastifyInstance) {
             },
           },
         },
+        select: {
+          id: true,
+          usuarioId: true,
+          prestador: {
+            select: {
+              nome: true,
+            },
+          },
+        },
+      });
+
+      await prisma.notificacoes.create({
+        data: {
+          userId: repair.usuarioId,
+          message: repair.prestador
+            ? `Seu conserto foi aceito por ${repair.prestador.nome}`
+            : "Seu conserto foi aceito por um voluntário",
+        },
       });
 
       return res.status(201).send({
