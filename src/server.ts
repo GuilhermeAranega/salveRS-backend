@@ -36,6 +36,7 @@ import { deleteVolunteer } from "./routes/delete-volunteer";
 import { getAllItems } from "./routes/get-all-items";
 import { getAllRepairs } from "./routes/get-all-repairs";
 import { acceptRepair } from "./routes/accept-repair";
+import { getAllPendingRepairs } from "./routes/get-all-pending-repairs";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -82,6 +83,7 @@ app.register(deleteItem);
 app.register(createRepair);
 app.register(getRepairById);
 app.register(getAllRepairs);
+app.register(getAllPendingRepairs);
 app.register(editRepair);
 app.register(deleteRepair);
 
