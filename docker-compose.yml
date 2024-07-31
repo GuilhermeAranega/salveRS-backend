@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - '6543:5432'
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=salveRSdb
+    volumes:
+      - salveRS_pg_data:/bitnami/postgresql
+
+volumes:
+  salveRS_pg_data:
