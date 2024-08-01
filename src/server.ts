@@ -61,8 +61,6 @@ app.register(fastifySwaggerUI, {
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.setValidatorCompiler(validatorCompiler);
-app.setSerializerCompiler(serializerCompiler);
 app.register(fastifyJwt, { secret: "key", sign: { expiresIn: "3d" } });
 app.register(fCookie, {
   secret: process.env.COOKIE_SECRET,
